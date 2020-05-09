@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/17546246/git-cloning-repository-into-new-repository
