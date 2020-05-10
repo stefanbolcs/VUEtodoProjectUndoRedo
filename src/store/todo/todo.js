@@ -6,11 +6,16 @@ Vue.use(Vuex);
 
 const todo = {
   state: {
-    todoList: []
+    todoList: ["istvan"]
   },
-  getters: {},
+  getters: {
+    getAllTodoList(state) {
+      return state.todoList;
+    }
+  },
   mutations: {
     [types.ADD_TODO](state, todo) {
+      console.log("before push");
       state.todoList.push(todo);
     },
     [types.SET_STATE](state, { index, complete }) {
@@ -20,7 +25,11 @@ const todo = {
       Vue.delete(state.todoList, index);
     }
   },
-  actions: {}
+  actions: {
+    insertNewTodo({ commit }, newTodo) {
+      commit(types.ADD_TODO, newTodo);
+    }
+  }
 };
 
 export default todo;

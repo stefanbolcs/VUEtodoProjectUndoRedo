@@ -1,13 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import todo from "todo";
+import todo from "./todo/todo";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {},
   mutations: {},
-  actions: {},
+  actions: {
+    someOtherAction({ dispatch }, newTodo) {
+      dispatch("insertNewTodo", newTodo);
+    }
+  },
   modules: {
     todo
   }

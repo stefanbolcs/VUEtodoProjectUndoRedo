@@ -1,12 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view />
+    <router-view /> -->
+    <input v-model="inputTodo.text" placeholder="new todo" />
+    <button label="add to TODOlist" class="normal" @click="sendTodo()" />
+
+    <h1 v-for="(item, index) in todo.todoList" :key="index">{{ item }}</h1>
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex";
+
+export default {
+  data() {
+    return {
+      inputTodo: {
+        text: ""
+      }
+    };
+  },
+  computed: {
+    ...mapState(["todo"])
+  },
+  props: {},
+  methods: {
+    sendTodo() {
+      console.log(this.inputTodo.text);
+      this.$store.dispatch("someOtherAction", this.inputTodo.text);
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {
