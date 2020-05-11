@@ -5,20 +5,29 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view /> -->
+    <button value="UNDO" class="normal" @click="makeUndo()">UNDO</button>
     <input v-model="inputTodo.text" placeholder="new todo" />
-    <button label="add to TODOlist" class="normal" @click="sendTodo()" />
+    <button label="add to TODOlist" class="normal" @click="sendTodo()">
+      Add todo
+    </button>
 
     <div v-for="(item, index) in todo.todoList" :key="index">
       <p>
         {{ item.text }}
-        <button value="delete todo" class="normal" @click="deleteTodo(item)" />
+        <button value="delete todo" class="normal" @click="deleteTodo(item)">
+          DELETE
+        </button>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import { mapState } from "vuex";
+
+import mixin from "./store/todo/undo";
+Vue.use(mixin);
 
 export default {
   data() {
@@ -36,37 +45,16 @@ export default {
 
   methods: {
     sendTodo() {
-      console.log(this.inputTodo.id);
       this.$store.dispatch("someOtherAction", this.inputTodo);
       this.inputTodo = { text: "", complete: false };
     },
     deleteTodo(item) {
       console.log(item);
       this.$store.dispatch("deleteTodoAction", item);
+    },
+    makeUndo() {
+      this.undo();
     }
   }
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
