@@ -10,6 +10,9 @@ export default new Vuex.Store({
   actions: {
     someOtherAction({ dispatch }, newTodo) {
       dispatch("insertNewTodo", newTodo);
+    },
+    deleteTodoAction({ dispatch }, todoToBeDeleted) {
+      dispatch("deleteTodo", todoToBeDeleted);
     }
   },
   modules: {

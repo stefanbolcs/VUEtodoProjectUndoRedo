@@ -8,7 +8,12 @@
     <input v-model="inputTodo.text" placeholder="new todo" />
     <button label="add to TODOlist" class="normal" @click="sendTodo()" />
 
-    <h1 v-for="(item, index) in todo.todoList" :key="index">{{ item }}</h1>
+    <div v-for="(item, index) in todo.todoList" :key="index">
+      <p>
+        {{ item.text }}
+        <button value="delete todo" class="normal" @click="deleteTodo(item)" />
+      </p>
+    </div>
   </div>
 </template>
 
@@ -19,18 +24,25 @@ export default {
   data() {
     return {
       inputTodo: {
-        text: ""
+        id: 0,
+        text: "",
+        complete: false
       }
     };
   },
   computed: {
     ...mapState(["todo"])
   },
-  props: {},
+
   methods: {
     sendTodo() {
-      console.log(this.inputTodo.text);
-      this.$store.dispatch("someOtherAction", this.inputTodo.text);
+      console.log(this.inputTodo.id);
+      this.$store.dispatch("someOtherAction", this.inputTodo);
+      this.inputTodo = { text: "", complete: false };
+    },
+    deleteTodo(item) {
+      console.log(item);
+      this.$store.dispatch("deleteTodoAction", item);
     }
   }
 };
